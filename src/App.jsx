@@ -9,16 +9,19 @@ function App() {
   const [isLoading,setIsLoading] = useState(true);
   const [term,setTerm] = useState('');
 
-useEffect(async ()=>{
+useEffect(()=>{
+  async function apiCall(){
   
-let res = await fetch(`https://pixabay.com/api/?key=${process.env.REACT_APP_API_PATH}&q=${term}&per_page=50`);
-let data = await res.json();
-
-if(data.length!==0){
-  setImages(data.hits);
-setIsLoading(false);
-}
-
+    let res = await fetch(`https://pixabay.com/api/?key=${process.env.REACT_APP_API_PATH}&q=${term}&per_page=50`);
+    let data = await res.json();
+    
+    if(data.length!==0){
+      setImages(data.hits);
+    setIsLoading(false);
+    }
+    
+    }
+    apiCall();
 },[term])
   return (
     <>
